@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex">
+        <img src="https://wwwd.fbc.co.il/sizeoff/assets/car-key.svg" height=50 alt="register">
+        <h2>Login</h2>
+      </div>
+
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email" required>
+        <mat-error>
+          Please provide a <strong>valid</strong> email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [type]="showPassword?'text':'password'" placeholder="Password" formControlName="password"
+               required>
+        <mat-icon matSuffix
+                  (click)="showPassword=!showPassword">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error>
+          Please provide a <strong>valid</strong> password
+        </mat-error>
+      </mat-form-field>
+
+      <!--        type={values.showPassword ? 'text' : 'password'}-->
+      <!--      <InputAdornment position="end">-->
+      <!--        <IconButton-->
+      <!--          onClick={handleClickShowPassword}-->
+      <!--      onMouseDown={handleMouseDownPassword}-->
+      <!--      >-->
+      <!--      {values.showPassword ? <Visibility /> : <VisibilityOff />}-->
+      <!--      </IconButton>-->
+      <!--    </InputAdornment>-->
+      <!--      }-->
+      <!--      />-->
+
+      <mat-card-actions>
+        <app-social-login></app-social-login>
+        <div>
+          <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+          </button>
+          <button type="button" mat-raised-button routerLink="/register">Register</button>
+        </div>
+      </mat-card-actions>
+
+    </form>
+  </mat-card-content>
+</mat-card>

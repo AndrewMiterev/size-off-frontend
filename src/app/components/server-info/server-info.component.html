@@ -1,0 +1,117 @@
+<app-loading *ngIf="loading" message="Loading server {{serverName}} info"></app-loading>
+
+<div class="back">
+  <button mat-mini-fab color="primary" (click)="goBack()" matTooltip="Exit to previous screen">
+    <mat-icon>replay_circle_filled</mat-icon>
+  </button>
+</div>
+
+<div *ngIf="!loading && service.info">
+
+  <app-block-info
+    title="{{service.info.licenseFor}} {{service.info.mainCompany?'('+(service.info.mainCompany|hebrew)+')':''}}"
+    description="{{service.info.name}}"
+    name="Common Info">
+    <p>License: <strong>{{service.info.licenseFor}}</strong></p>
+    <p *ngIf="service.info.mainCompany">Main company: <strong>{{service.info.mainCompany|hebrew}}</strong></p>
+    <p>Server: <strong>{{service.info.name}}</strong></p>
+  </app-block-info>
+
+  <app-block-info
+    title="Priority files size: {{service.data.usedSpacePriority-(service.info.backupSize||0) | number2size}}, DataBase: {{service.data.usedSpaceDbForClient | number2size}}"
+    name="Sizes">
+    <p>Priority files size: <strong>{{service.data.usedSpacePriority-(service.info.backupSize||0) | number2size}}</strong>
+    </p>
+    <p class="tabulated">
+      files size: <strong>{{service.info.filesSize | number2size}}</strong> <br>
+      count files: <strong>{{service.info.numberFiles|currency:'':'':'0.0-0'}}</strong> <br>
+      folders size: <strong>{{service.info.foldersSize | number2size}}</strong> <br>
+      count folders: <strong>{{service.info.numberFolders|currency:'':'':'0.0-0'}}</strong> <br>
+    </p>
+    <p *ngIf="service.info.backupSize>0" class="tabulated">
+      minus backup size: <strong>{{service.info.backupSize | number2size}}</strong> <br>
+      minus count files and folders: <strong>{{service.info.numberBackupFiles|currency:'':'':'0.0-0'}}</strong>
+    </p>
+    <p>DataBases: <strong>{{service.data.usedSpaceDb | number2size}}</strong></p>
+    <p class="tabulated">
+      priority system databases MDF:
+      <strong>{{service.info.systemDB.mdfSize + service.info.pritempDB.mdfSize | number2size}}</strong> <br>
+      priority system databases LDF:
+      <strong>{{service.info.systemDB.ldfSize + service.info.pritempDB.ldfSize | number2size}}</strong> <br>
+      priority client databases MDF: <strong>{{service.data.usedSpaceFirmsDbMdf | number2size}}</strong> <br>
+      priority client databases LDF: <strong>{{service.data.usedSpaceFirmsDbLdf | number2size}}</strong> <br>
+    </p>
+    <p *ngIf="service.data.usedSpaceAnotherDbMdf + service.data.usedSpaceAnotherDbLdf>0" class="tabulated">
+      another databases MDF: <strong>{{service.data.usedSpaceAnotherDbMdf | number2size}}</strong> <br>
+      another databases LDF: <strong>{{service.data.usedSpaceAnotherDbLdf | number2size}}</strong> <br>
+    </p>
+  </app-block-info>
+
+  <app-block-info
+    title="Can clear. Files: {{service.data.canClearPrioritySpace | number2size}}, DB: {{service.data.canClearDbSpace | number2size}}"
+    name="Can clear">
+    <p>Can clear files: <strong>{{service.data.canClearPrioritySpace | number2size}}</strong></p>
+    <p class="tabulated">
+      big reports/tmp: <strong>{{service.info.numberFilesCanClear|currency:'':'':'0.0-0'}}</strong> files
+      <strong>{{service.info.filesCanClearSize | number2size}}</strong><br>
+      backup within priority folder: <strong>{{service.info.numberBackupFiles|currency:'':'':'0.0-0'}}</strong> files
+      <strong>{{service.info.backupSize | number2size}}</strong><br>
+    </p>
+    <p>Can clear DB: <strong>{{service.data.canClearDbSpace | number2size}}</strong></p>
+    <p class="tabulated">
+      pritempDB: <strong>{{service.info.pritempDB.mdfSize + service.info.pritempDB.ldfSize | number2size}}</strong><br>
+      system LDF: <strong>{{service.info.systemDB.ldfSize | number2size}}</strong><br>
+      firms LDF: <strong>{{service.data.usedSpaceFirmsDbLdf | number2size}}</strong><br>
+      another DB:
+      <strong>{{service.data.usedSpaceAnotherDbMdf + service.data.usedSpaceAnotherDbLdf | number2size}}</strong><br>
+    </p>
+  </app-block-info>
+
+  <app-block-info
+    title="Disk usage. Priority: {{service.data.percentPriorityUsage | number:'1.1-2'}}%, MDF: {{service.data.percentDbUsageMdf | number:'1.1-2'}}%, LDF: {{service.data.percentDbUsageLdf | number:'1.1-2'}}%"
+    name="Disk usage">
+    <p> Priority disk space usage: <strong>{{service.data.percentPriorityUsage | number:'1.1-2'}}%</strong></p>
+    <p class="tabulated">
+      total files size: <strong>{{service.data.usedSpacePriority | number2size}}</strong><br>
+      total disk size: <strong>{{service.data.totalPriorityDiskSize | number2size}}</strong><br>
+      free space on disk: <strong>{{service.info.freeSpacePriority | number2size}}</strong><br>
+    </p>
+    <p> MDF disk usage: <strong>{{service.data.percentDbUsageMdf | number:'1.1-2'}}%</strong></p>
+    <p class="tabulated">
+      total MDF size: <strong>{{service.data.usedSpaceDbMdf | number2size}}</strong><br>
+      total disk size: <strong>{{service.data.usedSpaceDbMdf + service.info.freeSpaceForMdf | number2size}}</strong><br>
+      free space for MDF: <strong>{{service.info.freeSpaceForMdf | number2size}}</strong><br>
+    </p>
+    <p>LDF disk usage: <strong>{{service.data.percentDbUsageLdf | number:'1.1-2'}}%</strong></p>
+    <p class="tabulated">
+      total LDF size: <strong>{{service.data.usedSpaceDbLdf | number2size}}</strong><br>
+      total disk size: <strong>{{service.data.usedSpaceDbLdf + service.info.freeSpaceForLdf | number2size}}</strong><br>
+      free space for LDF: <strong>{{service.info.freeSpaceForLdf | number2size}}</strong><br>
+    </p>
+  </app-block-info>
+
+  <app-block-info
+    title="Databases. Priority: {{service.info.firms?.length}}{{service.info.another?', Another: ':''}} {{service.info.another?.length}}"
+    name="Databases">
+    <p>
+      Priority databases
+      <app-databases-list [firms]="service.info.firms"></app-databases-list>
+    </p>
+    <p *ngIf="service.info.another">
+      Databases not in current instance of priority
+      <app-databases-list [firms]="service.info.another"></app-databases-list>
+    </p>
+  </app-block-info>
+
+  <app-block-info title="Information on date: {{service.info.updated | date:'y-MM-dd HH:mm'}}" description="Versions?"
+                  name="Techno information">
+    <p>Information on date: <strong>{{service.info.updated | date:'y-MM-dd HH:mm'}}</strong></p>
+    <p>Priority version: <strong>{{service.info.priorityVersion}}</strong></p>
+    <p>SQL: <strong>{{service.info.sqlVersion}}</strong><br>{{service.info.sqlVersionDescription}}</p>
+  </app-block-info>
+
+  <!--  <app-databases-list [firms]="service.info.firms"></app-databases-list>-->
+  <!--  <app-databases-list [firms]="service.info.another"></app-databases-list>-->
+  <!--  <div class="json">{{service.info | json}}</div>-->
+</div>
+

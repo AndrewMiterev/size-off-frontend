@@ -1,0 +1,28 @@
+.boxed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+td.mat-cell {
+  padding-right: .5rem;
+}
+
+td {
+  cursor: default;
+}
+
+tr.mat-row {
+  height: 0;
+}
+
+tr.mat-header-row {
+  height: 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+mat-form-field {
+  padding-right: 0.5rem;
+}

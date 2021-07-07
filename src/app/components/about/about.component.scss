@@ -1,0 +1,28 @@
+mat-expansion-panel-header {
+  height: 2rem;
+}
+.mat-expansion-panel-header-description {
+  text-align: right;
+  float: right;
+  //display: block;
+}
+
+mat-panel-description {
+  //text-align: right;
+  //margin-left: auto;
+  //float: right;
+  //display: block;
+  //text-align: right;
+  //align-items: center;
+  //justify-content: center;
+  //justify-items: center;
+  //align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.margin-left {
+  margin-left: 2rem;
+}

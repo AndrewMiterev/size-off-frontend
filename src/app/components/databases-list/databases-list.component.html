@@ -1,0 +1,40 @@
+<!--<div class="list">-->
+<!--  <table *ngIf="firms?.length">-->
+<!--    <tr>-->
+<!--      <th>&#8470;</th>-->
+<!--      <th *ngIf="firms[0].firmName">Firm</th>-->
+<!--      <th *ngIf="firms[0].firmName">Name</th>-->
+<!--      <th *ngIf="!firms[0].firmName">Not priority database</th>-->
+<!--      <th>Size</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let server of firms; let i = index">-->
+<!--      <td>{{i + 1}}</td>-->
+<!--      <td *ngIf="firms[0].firmName">{{server.firmName}}</td>-->
+<!--      <td>{{server.dataBaseName}}</td>-->
+<!--      <td>{{server.mdfSize + server.ldfSize | number2size}}</td>-->
+<!--    </tr>-->
+<!--  </table>-->
+<!--</div>-->
+<div *ngIf="firms?.length">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+    <ng-container matColumnDef="NN">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>&#8470;</th>
+      <td mat-cell *matCellDef="let element">{{element.NN}}</td>
+    </ng-container>
+    <ng-container matColumnDef="firmName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Firm</th>
+      <td mat-cell *matCellDef="let element">{{element.firmName|hebrew}}</td>
+    </ng-container>
+    <ng-container matColumnDef="totalSize">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Size</th>
+      <td mat-cell *matCellDef="let element">{{element.totalSize|number2size}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dataBaseName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Not priority database</th>
+      <td mat-cell *matCellDef="let element">{{element.dataBaseName}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -1,0 +1,58 @@
+<app-loading *ngIf="serverService.loading||deleting">Servers list loading</app-loading>
+
+<!--<div *ngIf="!loading && serverService.servers?.length!==0">-->
+<div [hidden]="serverService.loading && serverService.servers?.length==0">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter servers be any field ..." #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z24">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Server</th>
+      <td mat-cell *matCellDef="let element" (click)="serverInfo(element.name)">{{element.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="licenseFor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>License</th>
+      <td mat-cell *matCellDef="let element" (click)="serverInfo(element.name)">{{element.licenseFor}}</td>
+    </ng-container>
+    <ng-container matColumnDef="mainCompany">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
+      <td mat-cell *matCellDef="let element" (click)="serverInfo(element.name)">{{element.mainCompany|hebrew}}</td>
+    </ng-container>
+    <ng-container matColumnDef="updated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated</th>
+      <td mat-cell *matCellDef="let element"
+          (click)="serverInfo(element.name)">{{element.updated|date:'y/MM/dd H:mm:ss'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="willBeUpdated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Job</th>
+      <td mat-cell *matCellDef="let element" (click)="serverInfo(element.name)">
+        <!--        <mat-icon *ngIf="element.willBeUpdated" color="accent">check_circle</mat-icon>-->
+        <mat-icon *ngIf="element.updateError" color="warn"
+                  matTooltip="Previous task for the server {{element.name}} was finished with an error!">error
+        </mat-icon>
+        <mat-icon *ngIf="element.willBeUpdated && !element.updateError" color="primary"
+                  matTooltip="There is a task for the server {{element.name}} to update the data soon">schedule
+        </mat-icon>
+        <!--        <div *ngIf="element.willBeUpdated" style="color: chartreuse; font-size: x-large">&#x2714;</div>-->
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-mini-fab color="primary" matTooltip="Delete info for server {{row.name}}"
+                (click)="deleteServer(row.name)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="1000">No data. Please call to FBC support center</td>
+    </tr>
+  </table>
+</div>

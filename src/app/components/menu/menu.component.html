@@ -1,0 +1,68 @@
+<mat-toolbar color="primary" class="expanded-toolbar">
+  <button mat-button *ngIf="accountService.user.isFBC()||accountService.user.isObserver()" routerLink="/servers">
+    <mat-icon>storage</mat-icon>
+    Servers
+  </button>
+
+  <button mat-button *ngIf="accountService.user.isAdmin()" routerLink="/users">
+    <mat-icon matBadge="{{userService.getCountUsersWithoutPermission()}}" matBadgeSize="small"
+              [matBadgeHidden]="userService.getCountUsersWithoutPermission()===0"
+              matBadgeColor="warn">supervised_user_circle
+    </mat-icon>
+    Users
+  </button>
+
+  <button mat-button *ngIf="accountService.user.isFBC()" routerLink="/jobs">
+    <mat-icon matBadge="{{jobService.jobs?.length}}" matBadgeSize="small"
+              [matBadgeHidden]="jobService.jobs?.length===0"
+              matBadgeColor="accent">published_with_changes
+    </mat-icon>
+    Jobs
+  </button>
+
+  <span class="spacer"></span>
+  <button mat-button *ngIf="!accountService.isLogged()" routerLink="/login">
+    <mat-icon>login</mat-icon>
+    Login
+  </button>
+  <button mat-button *ngIf="accountService.isLogged()" routerLink="/logoff">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+  <button mat-button [mat-menu-trigger-for]="menu" aria-label="drop-down-menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu xPosition="before" #menu="matMenu">
+  <button mat-menu-item *ngIf="accountService.user.isFBC()||accountService.user.isObserver()" routerLink="/servers">
+    <mat-icon>storage</mat-icon>
+    Servers
+  </button>
+  <button mat-menu-item *ngIf="accountService.user.isAdmin()" routerLink="/users">
+    <mat-icon>supervised_user_circle</mat-icon>
+    Users
+  </button>
+  <button mat-menu-item *ngIf="accountService.user.isFBC()" routerLink="/jobs">
+    <mat-icon>published_with_changes</mat-icon>
+    Jobs
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item *ngIf="accountService.isLogged()" routerLink="/who-am-i">
+    <mat-icon>face_retouching_natural</mat-icon>
+    Who Am I ?
+  </button>
+  <button mat-menu-item routerLink="/about">
+    <mat-icon>info</mat-icon>
+    About
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item *ngIf="!accountService.isLogged()" routerLink="/login">
+    <mat-icon>login</mat-icon>
+    Login
+  </button>
+  <button mat-menu-item *ngIf="accountService.isLogged()" routerLink="/logoff">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+</mat-menu>

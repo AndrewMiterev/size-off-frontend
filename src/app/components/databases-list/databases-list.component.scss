@@ -1,0 +1,36 @@
+//.list {
+//  margin-top: .5rem;
+//}
+//
+//table {
+//  cursor: default;
+//  border-radius: 5px;
+//  width: 100%;
+//  border: 1px solid var(--main-decodation-color);
+//  border-collapse: separate;
+//  empty-cells: hide;
+//}
+//
+//th, td {
+//  border: 1px solid var(--main-decodation-color);
+//  text-align: center;
+//}
+//
+//tr:hover td {
+//  background: var(--main-high-lighted-background);
+//}
+table {
+  margin-top: .5rem;
+}
+td {
+  cursor: default;
+}
+td.mat-cell {
+  padding-right: .5rem;
+}
+tr.mat-row {
+  height: 0;
+}
+tr.mat-header-row {
+  height: 0;
+}

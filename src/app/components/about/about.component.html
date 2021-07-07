@@ -1,0 +1,76 @@
+<h1>{{mainApp.title}}</h1>
+
+<p>
+  This program gives you the size of the current database and the size of the Priority folders for specific clients in
+  the cloud FBC.
+</p>
+
+<h2>FBC (For Better Computing)</h2>
+<p>
+  <img src="https://sfilev2.f-static.com/image/users/492719/ftp/my_files/16.png" alt="logo"> <br>
+  Ze'ev Orlov 77, Petah-Tikva<br>
+  Office: +972 39311166<br>
+  Fax phone: +972 39042636<br>
+</p>
+<p>
+  <strong>Office E-mail:</strong>
+  <a href="mailto:fbc@fbc.co.il"> fbc@fbc.co.il</a>
+</p>
+<p>
+  <strong>To register service call and another:</strong>
+  <a href="https:\\fbc.co.il"> > to FBC main site < </a> <br>
+</p>
+
+<mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState=false">
+  <mat-expansion-panel-header>
+    <mat-panel-title> Application is developed using</mat-panel-title>
+    <mat-panel-description><mat-icon>copyright</mat-icon></mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="flex">
+    <div>
+      <ul><strong> Backend </strong>
+        <li> Spring Boot</li>
+        <li> Spring Security</li>
+        <li> Spring Web</li>
+        <li> Spring Validation</li>
+        <li> Spring Configuration Processor</li>
+        <li> Microsoft JDBC</li>
+        <li> MapStruct</li>
+        <li> JWT</li>
+        <li> Spring oauth2 Client</li>
+        <li> MongoDB</li>
+      </ul>
+    </div>
+    <div>
+      <ul><strong> Frontend </strong>
+        <li> Angular 11.2.10</li>
+        <li> Material design</li>
+        <li> Bootstrap</li>
+        <li> OAuth 2.0</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!--  <div class="flex">-->
+  <!--    <div style="margin-right: .5rem">-->
+  <!--      Programmed by:-->
+  <!--    </div>-->
+  <!--    <div>-->
+  <!--      <strong>Andrew Miterev</strong> <br>-->
+  <!--      Cellular phone: +972 585959200<br>-->
+  <!--      E-mail:-->
+  <!--      <a href="mailto:andrew@fbc.co.il"> andrew@fbc.co.il</a>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <div>
+    Programmed by:
+    <div class="margin-left"><strong> Andrew Miterev </strong></div>
+    <div class="margin-left"> Cellular phone: +972 585959200</div>
+    <div class="margin-left"> E-mail: <a href="mailto:andrew@fbc.co.il"> andrew@fbc.co.il</a></div>
+    <br>
+    To order changes to the program please contact the e-mail address directly
+  </div>
+</mat-expansion-panel>

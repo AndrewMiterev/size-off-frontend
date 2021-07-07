@@ -1,0 +1,23 @@
+td.mat-cell {
+  padding-right: .5rem;
+}
+
+td {
+  cursor: pointer;
+}
+
+tr.mat-row {
+  height: 0;
+}
+
+tr.mat-header-row {
+  height: 0;
+}
+
+tr:hover td {
+  background: var(--main-selected-background);
+}
+
+h1 {
+  text-shadow: 4px 3px 0 white, 8px 6px 5px gray;
+}

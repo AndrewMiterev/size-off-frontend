@@ -1,0 +1,72 @@
+<app-loading *ngIf="loading || !user" message="Loading user {{loadingEmail}} info"></app-loading>
+
+<mat-card *ngIf="user">
+  <mat-card-content>
+    <mat-card-title>{{user.email}}</mat-card-title>
+    <mat-card-subtitle>{{user.name}}</mat-card-subtitle>
+
+    <div *ngIf="user.registrationDate">Registered: {{user.registrationDate|date:'y/MM/dd hh:mm:ss'}}</div>
+    <div *ngIf="user.lastLogin">Last login: {{user.lastLogin|date:'y/MM/dd hh:mm:ss'}}</div>
+    <p></p>
+
+    <mat-divider></mat-divider>
+    <mat-slide-toggle [(ngModel)]="isAdmin"
+                      matTooltip="Administrator can edit setting for another users and delete servers information">is
+      administrator
+    </mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="isUser"
+                      matTooltip="FBC users can view all of all FBC servers and can change updating tasks. It is forbidden to put the FBC user on third-party users!">
+      is FBC user
+    </mat-slide-toggle>
+    <mat-divider></mat-divider>
+
+    <mat-form-field *ngIf="!(isAdmin || isUser)" class="chip-list">
+      <mat-label>Servers list</mat-label>
+      <mat-chip-list #chipList aria-label="Server selection">
+        <mat-chip *ngFor="let server of userServersList"
+                  (removed)="removeServerFromList(server)">
+          {{server}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="New server..."
+          #serverInput
+          [formControl]="formControl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let server of filteredServers | async" [value]="server">
+          {{server}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button color="accent" matTooltip="Save user settings" (click)="onSubmit()">
+        <span *ngIf="saving" class="spinner-border spinner-border-sm mr-1"></span>
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+      <button mat-raised-button color="warn" matTooltip="Delete user {{user.email}}" (click)="onDelete()">
+        <span *ngIf="deleting" class="spinner-border spinner-border-sm mr-1"></span>
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+      <button mat-raised-button color="basic"
+              matTooltip="Restoring the user's settings to the state at the time of entering the form. Don't forget to make a save"
+              (click)="onReset()">
+        <mat-icon>restore</mat-icon>
+        Restore
+      </button>
+      <button mat-raised-button color="basic" matTooltip="Exit from edit form" routerLink="/users">
+        <mat-icon>cancel</mat-icon>
+        Cancel
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+
+

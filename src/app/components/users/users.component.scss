@@ -1,0 +1,57 @@
+//.filter {
+//  display: flex;
+//  align-items: center;
+//  width: 100%;
+//  margin-bottom: .5rem;
+//
+//  input {
+//    width: 100%;
+//    height: 100%;
+//    border: 1px solid var(--main-decodation-color);
+//    border-radius: 5px;
+//    outline: none;
+//    padding: .5rem;
+//  }
+//}
+//
+//.list {
+//  margin-top: .5rem;
+//}
+//
+//table {
+//cursor: default;
+//border-radius: 5px;
+//  width: 100%;
+//  border: 1px solid var(--main-decodation-color);
+//  border-collapse: separate;
+//  empty-cells: hide;
+//}
+//
+//
+//th, td {
+//  //border: 1px solid var(--main-decodation-color);
+//  //height: 0;
+//  text-align: center;
+//  //font-size: x-small;
+//}
+//
+
+td {
+  cursor: pointer;
+}
+
+tr.mat-row {
+  height: 0;
+}
+
+tr.mat-header-row {
+  height: 0;
+}
+
+tr:hover td {
+  background: var(--main-selected-background);
+}
+
+.new {
+  color: red;
+}

@@ -1,0 +1,9 @@
+<!--<h1 mat-dialog-title>Question</h1>-->
+<div mat-dialog-content>
+  <div [innerHTML]="data.question"></div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="true">Ok</button>
+  <button mat-raised-button cdkFocusInitial [mat-dialog-close]="false">Cancel</button>
+<!--  <button mat-raised-button ngDefaultControl [mat-dialog-close]="false">Cancel</button>-->
+</div>

@@ -1,0 +1,20 @@
+.tabulated {
+  margin-left: 2em
+}
+
+.back {
+  button {
+    z-index: 99;
+    position: fixed;
+    bottom: .5rem;
+    right: .5rem;
+    &:hover {
+      background: var(--main-selected-background);
+    }
+  }
+}
+
+.json {
+  margin-top: 2rem;
+  font-size: .8rem;
+}

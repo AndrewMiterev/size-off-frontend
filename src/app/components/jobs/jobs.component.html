@@ -1,0 +1,66 @@
+<app-loading *ngIf="jobService.jobs.length===0 && jobService.loading" message="Loading jobs"></app-loading>
+
+<!--<div *ngIf="!jobService.loading && accountService.user.isFBC()"> doesn't work because material design table error ! -->
+<div [hidden]="!(!jobService.loading && accountService.user.isFBC())">
+  <app-loading *ngIf="deleting"></app-loading>
+  <div class="boxed">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filter jobs by any field ..." #input>
+    </mat-form-field>
+    <span class="spacer"></span>
+    <mat-form-field>
+      <mat-label>Server to add</mat-label>
+      <input matInput placeholder="Server to add" #addServer>
+    </mat-form-field>
+    <button mat-raised-button (click)="addJob(addServer.value)">
+      <span *ngIf="adding" class="spinner-border spinner-border-sm mr-1"></span>
+      <mat-icon>add_task</mat-icon>
+      Add
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z24"
+         matSort
+         matSortActive="name" matSortDirection="asc" matSortDisableClear
+  >
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-mini-fab color="warn" title="{{row.name}}" matTooltip="Delete a job for {{row.name}}"
+                (click)="deleteJob(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stamp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+      <td mat-cell *matCellDef="let element">{{element.stamp|date:'y/MM/dd H:mm:ss'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="error">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Error</th>
+      <td mat-cell *matCellDef="let element">{{element.error}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="errorDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Error</th>
+      <td mat-cell *matCellDef="let element">{{element.errorDate|date:'y/MM/dd H:mm:ss'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td *ngIf="!input.value" class="mat-cell" colspan="1000">No data</td>
+      <td *ngIf="input.value" class="mat-cell" colspan="1000">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+</div>

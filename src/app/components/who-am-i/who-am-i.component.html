@@ -1,0 +1,33 @@
+<br>
+<h5>Who I am ?</h5>
+<h2>{{service.user.email}}</h2>
+<mat-divider></mat-divider>
+Is admin: {{service.user.isAdmin()}} <br>
+Is FBC user: {{service.user.isUser()}} <br>
+<mat-divider></mat-divider>
+Access right to observe servers: <br>
+
+<div *ngIf="service.user.isFBC()">
+  <p>All servers</p>
+</div>
+
+<div *ngIf="!service.user.isFBC()">
+  <div *ngIf="service.user.isObserver(); else listEmpty">
+    <ul>
+      <div *ngFor="let server of service.user.observeTo()">
+        <li>
+          {{server}}
+        </li>
+      </div>
+    </ul>
+  </div>
+</div>
+
+<ng-template #listEmpty>
+  <p>...Nope...</p>
+  <p>Please call to FBC service center or open the service call for necessary permissions</p>
+</ng-template>
+<p>
+  <strong>To register service call and another:</strong>
+  <a href="https:\\fbc.co.il"> > FBC main site < </a> <br>
+</p>
