@@ -1,0 +1,39 @@
+* {
+  //--main-color: #333;
+  //--main-background: #fff;
+  //--main-decodation-color: #69c;
+  //--main-high-lighted-background: #ccddff;
+  //--main-selected-color: #fff;
+  --main-selected-background: gold;
+  //
+  //--main-warning-color: #fff;
+  //--main-warning-background: #ff0000;
+  //--main-warning-background-on-shadow: #7e0000;
+
+  //
+  margin: 0;
+  padding: 0;
+  //box-sizing: border-box;
+  //font-family: Tahoma, sans-serif;
+}
+
+.container {
+// in production must be without width!!!
+//  width: 500px;
+  margin: 0 auto;
+}
+
+//.header {
+//  display: flex;
+//  width: 100%;
+//  height: content-box;
+//  align-items: center;
+//  justify-content: space-between;
+//  padding-bottom: .5rem;
+//}
+
+//#wrapper {
+//  display: grid;
+//  grid-template-rows: auto auto;
+//  grid-template-columns: 1fr;
+//}
